@@ -22,7 +22,7 @@ class TaskTile extends StatelessWidget {
         style: TextStyle(
             decoration: isChecked ? TextDecoration.lineThrough : null),
       ),
-      //! checkBoxCallback getting an anonymous CallBackFunction at toogleCheckboxState
+      //! checkBoxCallback getting an anonymous CallBackFunction at toogleCheckboxState (moved to task_list.dart)
       trailing: Checkbox(
         value: isChecked,
         activeColor: Colors.lightBlueAccent,
