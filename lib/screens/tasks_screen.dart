@@ -1,21 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_todo/models/task-data.dart';
 import 'package:flutter_todo/models/task.dart';
 import 'package:flutter_todo/screens/add_task_screen.dart';
 import 'package:flutter_todo/widgets/tasks_list.dart';
+import 'package:provider/provider.dart';
 
-class TasksScreen extends StatefulWidget {
-  @override
-  _TasksScreenState createState() => _TasksScreenState();
-}
-
-//! Lift the state from tasks_list.dart to tasks_screen.dart
-class _TasksScreenState extends State<TasksScreen> {
-  List<Task> tasks = [
-    Task(name: 'Buy milk'),
-    Task(name: 'Buy eggs'),
-    Task(name: 'Buy bread'),
-  ];
-
+class TasksScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,11 +18,11 @@ class _TasksScreenState extends State<TasksScreen> {
             context: context,
             builder: (context) => AddTaskScreen(
               (newTaskTitle) {
-                setState(
+                /* setState(
                   () {
                     tasks.add(Task(name: newTaskTitle));
                   },
-                );
+                ); */
                 //! after pressing add the AddTaskScreen disapears again
                 Navigator.pop(context);
               },
@@ -69,7 +59,7 @@ class _TasksScreenState extends State<TasksScreen> {
                       fontWeight: FontWeight.w700),
                 ),
                 Text(
-                  '${tasks.length} Tasks',
+                  '${Provider.of<TaskData>(context).tasks.length} Tasks',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 18,
@@ -89,7 +79,7 @@ class _TasksScreenState extends State<TasksScreen> {
                   topRight: Radius.circular(20.0),
                 ),
               ),
-              child: TasksList(tasks),
+              child: TasksList(),
             ),
           ),
         ],
