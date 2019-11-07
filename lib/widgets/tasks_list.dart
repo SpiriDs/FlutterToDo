@@ -10,21 +10,20 @@ class TasksList extends StatelessWidget {
     return Consumer<TaskData>(
       builder: (context, taskData, child) {
         return ListView.builder(
-          itemCount: taskData.tasks.length,
+          itemCount: taskData.taskCount,
           itemBuilder: (BuildContext context, int index) {
+            final task = taskData.tasks[index];
             return TaskTile(
-              taskTitle: taskData.tasks[index].name,
-              isChecked: taskData.tasks[index].isDone,
-              //! Here is the anonymous callback function from the task_list.dart ended up after 175 :)
-              checkboxCallback: (checkboxState) {
-                print('Callback run');
-                /* setState(
-                  () {
-                    widget.tasks[index].toggleDone();
-                  },
-                ); */
-              },
-            );
+                taskTitle: task.name,
+                isChecked: task.isDone,
+                //! Here is the anonymous callback function from the task_list.dart ended up after 175 :)
+                checkboxCallback: (checkboxState) {
+                  print('Callback run');
+                  taskData.updateTask(task);
+                },
+                onLongPressCallback: () {
+                  taskData.deleteTask(task);
+                });
           },
         );
       },
